@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travail Pratique - IFT1410</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #f0f4f8; }
+        .card { text-align: center; padding: 30px; background: white; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); border-top: 5px solid #4a90e2; max-width: 450px; }
+        h1 { color: #333; margin-bottom: 10px; }
+        .status-ok { color: #27ae60; font-weight: bold; display: none; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="login-card">
+        <h1>🎓 Cours IFT1410</h1>
+        <p>Projet : Assistant Intelligent (Coze)</p>
+        <p id="msg">Veuillez entrer le code d'accès.</p>
+        <div id="success-msg" class="status-ok">✅ Accès autorisé. Le bot apparaît en bas à droite.</div>
+    </div>
+
+    <script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/1.2.0-beta.6/libs/oversea/index.js"></script>
+
+    <script>
+        const MOT_DE_PASSE_ATTENDU = "IFT1410"; 
+        const saisie = prompt("Entrez le code d'accès :");
+
+        if (saisie === MOT_DE_PASSE_ATTENDU) {
+            document.getElementById('msg').style.display = 'none';
+            document.getElementById('success-msg').style.display = 'block';
+
+            new CozeWebSDK.WebChatClient({
+                config: {
+                    bot_id: '7628244174429765637',
+                },
+                componentProps: {
+                    title: 'Assistant IFT1410',
+                }
+            });
+        } else {
+            document.getElementById('login-card').innerHTML = "<h1>❌ Accès refusé</h1><p>Code incorrect.</p><button onclick='window.location.reload()'>Réessayer</button>";
+        }
+    </script>
+</body>
+</html>
